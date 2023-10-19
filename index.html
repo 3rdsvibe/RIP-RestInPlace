@@ -1,10 +1,257 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-  </head>
-  <body>
-    <h1>welcome everyone k</h1>
-  </body>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Athiti&display=swap');
+
+        #rightHalf {
+            margin-left: 50%;
+            height: 60px;
+        }
+
+        #leftHalf {
+            float: left;
+            background-color: #F6F6F6;
+            text-align: left;
+            height: 84%;
+            width: 40%;
+            margin-left: 20px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            font-size: 18px;
+            padding: 25px;
+            font-family: 'Athiti', sans-serif;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 98.7%;
+            height: 70px;
+            background-color: #ffffff;
+        }
+
+        nav ul {
+            float: right;
+            background-color: #ffffff;
+        }
+
+        nav ul li a:hover {
+            color: #3c8f8c;
+        }
+
+        li {
+            color: #59A3B4;
+            text-align: center;
+            font-family: 'Athiti', sans-serif;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        nav ul li {
+            font-family: 'Athiti', sans-serif;
+            display: inline-block;
+            font-size: 19px;
+            line-height: 45px;
+            padding: 0 15px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background-image: url("https://i.pinimg.com/564x/62/95/79/629579823c4b0f350238522d1067dfb2.jpg");
+            background-size: 100%;
+            font-family: 'Athiti', sans-serif;
+        }
+
+        .signup {
+            width: 135px;
+            height: 50px;
+            flex-shrink: 0;
+            font-size: 20px;
+            font-family: 'Athiti', sans-serif;
+            border-radius: 10px;
+            border: 1px solid #59A3B4;
+            background-color: #ffffff;
+        }
+
+        .flex-container {
+            display: flex;
+            flex-direction: row;
+            /* จัดวางแบบแนวนอน */
+            align-items: center;
+            /* จัดให้อยู่ตรงกลางแนวตั้ง */
+        }
+
+        input[type=text],
+        select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 3px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-family: 'Athiti', sans-serif;
+        }
+
+        .center {
+            text-align: center;
+            font-family: 'Athiti', sans-serif;
+        }
+
+        .signup_as {
+            font-family: 'Athiti', sans-serif;
+            background-color: #59A3B4;
+            border-radius: 10px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            width: 50%;
+            height: 50px;
+            flex-shrink: 0;
+            color: #ffffff;
+            font-size: 20px;
+        }
+
+        .signup_as:hover {
+            background-color: #ffffff;
+            color: #59A3B4;
+        }
+
+        .signin_link {
+            font-family: 'Athiti', sans-serif;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            height: 50px;
+            flex-shrink: 0;
+            color: #000000;
+            font-size: 20px;
+        }
+
+        .signin_link:hover {
+            background-color: #ababab;
+            color: #ffffff;
+        }
+
+        .centered {
+            position: absolute;
+            top: 30%;
+            left: 60%;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- JavaScript Bootstrap และ jQuery (ถ้าคุณใช้ Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <nav>
+        <a href="home.php"><img src="RIP.png" width="80px" height="80px"></a>
+        <ul>
+            <li><a href="sign_in.html">เข้าสู่ระบบ</a></li>
+            <li><a href="sign_up.html"><button type="submit" class="signup">สมัครสมาชิก</button></a></li>
+        </ul>
+    </nav>
+    <p id="rightHalf"><img src="RIP.png" width="400px" height="400px" class="centered"></p>
+    <form id="leftHalf">
+        <h2 class="center"><strong>สมัครสมาชิก</strong></h2>
+        <!-- คำนวณค่า id ตามประเภทของผู้สมัคร -->
+        <input type="hidden" name="signup_type" id="signup_type" value="">
+        <div class="flex-container">
+            <div class="col-6">
+                <p>
+                    <label for="fname">ชื่อ</label>
+                    <input type="text" name="fname" id="fname">
+                </p>
+            </div>
+            <div class="col-6">
+                <p>
+                    <label for="lname">นามสกุล</label>
+                    <input type="text" name="lname" id="lname">
+                </p>
+            </div>
+        </div>
+        <!-- เพิ่มฟิลด์เพิ่มเติมที่เกี่ยวกับผู้สมัครตามความเหมาะสม -->
+        <p>
+            <label for="email">อีเมล</label>
+            <br>
+            <input type="text" name="email" id="email">
+        </p>
+        <p>
+            <label for="password">รหัสผ่าน</label>
+            <br>
+            <input type="password" name="password" id="password">
+        </p>
+        <p>
+            <label for="c_pass">ยืนยันรหัสผ่าน</label>
+            <br>
+            <input type="password" name="c_pass" id="c_pass">
+        </p>
+        <!-- เพิ่มฟิลด์เพิ่มเติมที่เกี่ยวกับผู้สมัครตามความเหมาะสม -->
+        <p>
+            <label for="tel">หมายเลขโทรศัพท์</label>
+            <br>
+            <input type="text" name="tel" id="tel">
+        </p>
+        <div class="flex-container">
+            <input type="button" value="สมัครสมาชิกผู้จอง" class="signup_as" onclick="setSignupType('customer')">
+            <input type="button" value="สมัครสมาชิกผู้ปล่อยเช่า" class="signup_as" onclick="setSignupType('partner')">
+        </div>
+        <a href="sign_in.html"><button type="button" value="มีบัญชีอยู่แล้ว? เข้าสู่ระบบ" class="signin_link">มีบัญชีอยู่แล้ว? เข้าสู่ระบบ</button></a>
+    </form>
+    
+    <script>
+        
+        async function setSignupType(type) {
+            const name = document.getElementById('fname').value
+            const lastname = document.getElementById('lname').value
+            const email = document.getElementById("email").value
+            const password = document.getElementById("password").value
+            const c_pass = document.getElementById("c_pass").value
+            const tel = document.getElementById("tel").value
+            const signup_type = type
+
+            const formData = new FormData()
+            formData.append("fname", name)
+            formData.append("lname", lastname)
+            formData.append("email", email)
+            formData.append("password", password)
+            formData.append("c_pass", c_pass)
+            formData.append("tel", tel)
+            formData.append("signup_type", signup_type)
+
+            const res = await fetch("http://localhost:80/rip/2/sign_up.php", {
+                method : "POST",
+                body : formData
+            })
+
+            const body = await res.json()
+
+            if (body.passwordMatch === false) {
+                alert('รหัสผ่านไม่ตรงกัน');
+            } else if (body.emailExists === true) {
+                alert('อีเมลนี้ถูกใช้ไปแล้ว');
+            }
+            console.log(body)
+        }
+        
+    </script>
+
+</body>
+
 </html>
