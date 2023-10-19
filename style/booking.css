@@ -154,3 +154,41 @@ a:is(:link,:active,:visited).active{
  .box-room{
     font-size: 24px;
  }
+ .nameAddress{
+    margin-top: 20px;
+ }
+ .box-address{
+    margin-top: 20px;
+ }
+input.form-control{
+    width: 80%;
+    height: 40px;
+    border-radius: 10px;
+    border: solid darkgrey;
+}
+.fix-item-address{
+    display: flex;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+}
+.item {
+    flex: 0 0 calc(50% - 10px); /* Two items in each row (minus margins) */
+    margin: 5px; /* Add some margin between items */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+.group-address{
+display: flex;
+flex-direction: column;
+}
+input.form-control.country,input.form-control.city,input.form-control.zip,input.form-control.apv{
+    width: 100%;
+
+}
+.fix-item-address {
+    width: 80%;
+}
+.address{
+    margin: 5px;
+    padding: 10px;
+}
