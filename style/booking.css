@@ -1,0 +1,156 @@
+
+body {
+    background-image: url("../wall.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 0px;
+    margin: 0px;
+  }
+
+nav{
+    display: flex;
+    background-color: white;
+
+}
+nav .navbar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  
+  
+}
+nav .navbar li{
+    padding-left: 20px;
+   
+}
+ul li{
+    list-style: none; 
+}
+nav .navbar li a{
+    text-decoration: none;
+   color: black;
+}
+header nav{
+    border-radius: 0px 0px 30px 30px;
+}
+.container{
+    width: 1600px;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+.container .container-body{
+    padding: 10px;
+    width: 95%;
+    /* background-color: red; */
+    margin: 0 auto;
+    /* text-align: center; */
+}
+.btn-manage{
+    width: 48%;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #59A3B4;
+    color: white;
+
+}
+.top{
+    display: flex;
+    flex-direction: column;
+}
+.top .top-body .btn-room{
+   
+    border-radius: 10px;
+    background-color: #59A3B4;
+    color: white;
+
+}
+button.btn-room {
+    height: 60%;
+  
+    width: 10%;
+}
+.top-body{
+    height: 200px;
+}
+
+.top-body .move-right {
+    margin-left: 50px; /* Adjust the margin as needed */
+}
+a:is(:link,:active,:visited).active{
+   color:#59A3B4;
+}
+.detail-room{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.body-detail{
+    display: flex;
+}
+.room{
+    width: 20%;
+}
+
+
+.box-room {
+    border: 2px solid;
+    /* background: red; */
+    padding: 15px;
+    margin: 0px 0px 10px 0px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* .boox-room p{
+    align-items: center;
+} */
+.img-detail{
+   
+    width: 80%;
+    margin-left: 20px;
+    border-radius: 10px;
+}
+.all-img{
+    display: flex;
+    border: 2px solid;
+    border-radius: 10px;
+    height: 150px;
+   
+}
+.all-img img{
+    width:25%;
+}
+.price-per-day{
+    border: 2px solid;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+.text-per-day h2{
+    margin-left: 10px;
+}
+.price-per-day h2{
+   margin-left: 10px;
+   
+ }
+ .box-price{
+    /* display: flex; */
+    /* justify-content: space-between; */
+ }
+ /* .each-room{
+    display: flex;
+    justify-content: space-between;
+ } */
+ .btn-increas{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+ }
+ .box-room{
+    font-size: 24px;
+ }
