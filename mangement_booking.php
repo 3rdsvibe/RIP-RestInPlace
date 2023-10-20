@@ -51,9 +51,10 @@
     <div class="container">
         <div class="container-body">
             <div class="header">
-                <button type="button" class="btn-manage">แก้ไขข้อมูลที่พัก</button>
-                <button type="button"  class="btn-manage-edit">เพิ่มข้อมูลที่พัก</button>
+                <button type="button" class="btn-manage" id = "btn-manage">แก้ไขข้อมูลที่พัก</button>
+                <button type="button"  class="btn-manage-edit" id ="btn-manage-edit">เพิ่มข้อมูลที่พัก</button>
             </div>
+            <div class="body">
             <div class="top">
                 <div class="title">
                     <h2>ประเภทที่พัก</h2>
@@ -73,33 +74,33 @@
                             <div class="box-room">
                                 <span >ห้องนอน</span>
                                 <div class="btn-increas">
-                                    <button type="button" style="width: 30px; height:30px" id ="decrement-bedroom"> <ion-icon name="remove-outline" size ="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="decrement-bedroom" name ="remove"> <ion-icon name="remove-outline" size ="small"></ion-icon></button>
                                     <span style="font-size:30px" id ="countBedRoom">0</span>
-                                    <button type="button" style="width: 30px; height:30px" id ="increment-bedroom">  <ion-icon name="add-outline" size="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="increment-bedroom" name ="add">  <ion-icon name="add-outline" size="small"></ion-icon></button>
                                 </div>
                             </div>
                             <div class="box-room">
                                 <span >ห้องเดี่ยว</span>
                                 <div class="btn-increas">
-                                    <button type="button" style="width: 30px; height:30px" id ="decrement-singleRoom">  <ion-icon name="remove-outline" size ="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="decrement-singleRoom" name ="remove">  <ion-icon name="remove-outline" size ="small"></ion-icon></button>
                                     <span style="font-size:30px" id="singleRoom">0</span>
-                                    <button type="button" style="width: 30px; height:30px" id ="increment-singleRoom">   <ion-icon name="add-outline" size="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="increment-singleRoom"name ="add" >   <ion-icon name="add-outline" size="small"></ion-icon></button>
                                 </div>
                             </div>
                             <div class="box-room">
                                 <span >จำนวนที่รองรับ</span>
                                 <div class="btn-increas">
-                                    <button type="button" style="width: 30px; height:30px" id ="decrement-amount"> <ion-icon name="remove-outline" size ="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="decrement-amount" name ="remove"> <ion-icon name="remove-outline" size ="small"></ion-icon></button>
                                     <label style="font-size:30px" id="amount">0</label>
-                                    <button type="button" style="width: 30px; height:30px" id ="increment-amount">  <ion-icon name="add-outline" size="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="increment-amount" name ="add">  <ion-icon name="add-outline" size="small"></ion-icon></button>
                                 </div>
                             </div>
                             <div class="box-room">
                                 <span >ห้องน้ำ</span>
                                 <div class="btn-increas">
-                                    <button type="button" style="width: 30px; height:30px" id ="decrement-bathroom">  <ion-icon name="remove-outline" size ="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="decrement-bathroom" name ="remove">  <ion-icon name="remove-outline" size ="small"></ion-icon></button>
                                     <label style="font-size:30px" id="bathroom">0</label>
-                                    <button type="button" style="width: 30px; height:30px" id ="increment-bathroom">  <ion-icon name="add-outline" size="small"></ion-icon></button>
+                                    <button type="button" style="width: 30px; height:30px" id ="increment-bathroom" name ="add">  <ion-icon name="add-outline" size="small"></ion-icon></button>
                                 </div>
                             </div>
                           
@@ -124,68 +125,60 @@
                         </div>
                     </div>
                 </div>
-              
-                    <!-- <div class="body-detail2">
-                        
-                        <div class="box-room">ห้องนอน</div>
-                        <div class="box-room">ห้องสวีท</div>
-                        <div class="box-room">จำนวนที่รองรับ</div>
-                    </div> -->
-
+            </div>
+            <hr color="gray">
+            <div class="test" id = "test"></div>
+            <a style="color: #59A3B4;"  href="" id = "addRoom">เพิ่มห้องพักประเภทอื่น</a>
+            <div class="box-address">
+                <h2>ชื่อที่พัก</h2>
+                <div class="input-group flex-nowrap">
+                    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                 </div>
-                <hr color="gray">
-                <div class="test" id = "test"></div>
-                <a style="color: #59A3B4;"  href="" id = "addRoom">เพิ่มห้องพักประเภทอื่น</a>
-                <div class="box-address">
-                    <h2>ชื่อที่พัก</h2>
-                    <div class="input-group flex-nowrap">
+                <h2>ตำแหน่งที่ตั้ง</h2>
+                <div class="group-address">
+                    <div class="address">
+                        <label>ที่อยู่</label><br/>
                         <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
-                    <h2>ตำแหน่งที่ตั้ง</h2>
-                    <div class="group-address">
-                        <div class="address">
-                            <label>ที่อยู่</label><br/>
-                            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                    <div class="fix-item-address">
+                        <div class="item">
+                            <labe>ประเทศ</labe><br/>
+                            <input type="text" class="form-control country" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                         </div>
-                        <div class="fix-item-address">
-                            <div class="item">
-                                <labe>ประเทศ</labe><br/>
-                                <input type="text" class="form-control country" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                            </div>
-                            <div class="item">
-                                <labe style="margin-left:15px">จังหวัด</labe><br/>
-                                <input type="text" class="form-control apv" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                            </div>
-                            <div class="item">
-                                <labe>เมือง</labe><br/>
-                                <input type="text" class="form-control city" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                            </div>
-                            <div class="item">
-                                <labe>รหัสไปรษณีย์</labe><br/>
-                                <input type="text" class="form-control zip" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                            </div>
+                        <div class="item">
+                            <labe style="margin-left:15px">จังหวัด</labe><br/>
+                            <input type="text" class="form-control apv" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                         </div>
-                        <div class="box-Convenience">
-                            <h2>สิ่งอำนวยความสะดวก</h2>
-                            <textarea id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                        <div class="item">
+                            <labe>เมือง</labe><br/>
+                            <input type="text" class="form-control city" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                         </div>
-                        <div class="box-imag-address">
-                            <h2 style="padding-top:20px">ภาพที่พัก</h2>
-                            <div class="all-images">
-                                <img src="logo.png" id="logo" width="25%" height="25%">
-                                <img src="logo.png" id="logo" width="25%" height="25%">
-                                <img src="logo.png" id="logo" width="25%" height="25%">
-                                <img src="logo.png" id="logo" width="25%" height="25%">
-                            </div>
-                            <div class="btn-confirm-edit">
-                                <button type="button" class="btn-edit">ยืนยันการแก้ไข</button>
-                            </div>
-                           
+                        <div class="item">
+                            <labe>รหัสไปรษณีย์</labe><br/>
+                            <input type="text" class="form-control zip" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                         </div>
                     </div>
+                    <div class="box-Convenience">
+                        <h2>สิ่งอำนวยความสะดวก</h2>
+                        <textarea id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                    </div>
+                    <div class="box-imag-address">
+                        <h2 style="padding-top:20px">ภาพที่พัก</h2>
+                        <div class="all-images">
+                            <img src="logo.png" id="logo" width="25%" height="25%">
+                            <img src="logo.png" id="logo" width="25%" height="25%">
+                            <img src="logo.png" id="logo" width="25%" height="25%">
+                            <img src="logo.png" id="logo" width="25%" height="25%">
+                        </div>
+                        <div class="btn-confirm-edit">
+                            <button type="button" class="btn-edit">ยืนยันการแก้ไข</button>
+                        </div>
+                        
+                    </div>
                 </div>
+            </div>
             </div>  
-             
+            </div>
         </div>
     </div>
     <!-- <div class="container-add-room">
@@ -201,83 +194,69 @@
             var bathroom = 0; // Initialize singleRoom to 0
             var count = 0;
             var oldButtonId = "";
-            $("button").click(function() {
-                // Get the id attribute of the clicked button
-                var buttonId = $(this).attr("id");
-                var splitButtonId = buttonId.split("-");
-                if(splitButtonId[0] == "increment")
-                {
-                    // count++
-             
-                    if(buttonId == "increment-bedroom")
-                    {
-                        let num =  $("#countBedRoom").text();
-                        num++
-                        $("#countBedRoom").text(num);
-                    }
-                    if(buttonId == "increment-singleRoom")
-                    {
-                        let num =  $("#singleRoom").text();
-                        num++
-                        $("#singleRoom").text(num);
-                    }
-                    if(buttonId == "increment-amount")
-                    {
-                        let num =  $("#amount").text();
-                        num++
-                      
-                        $("#amount").text(num);
-                    }
-                    if(buttonId == "increment-bathroom")
-                    {
-                        let num =  $("#bathroom").text();
-                        num++
-                        $("#bathroom").text(num);
-                    }   
-                }
-                else{
-                    if(buttonId == "decrement-bedroom")
-                    {
-                        let num =  $("#countBedRoom").text();
-                        if(num >0)
-                        {
-                            num--
-                            $("#countBedRoom").text(num);
-                        }
-                    }
-                    if(buttonId == "decrement-singleRoom")
-                    {
-                        let num =  $("#singleRoom").text();
-                        if(num>0)
-                        {
-                            num--
-                            $("#singleRoom").text(num);
-                        }
-                    }
-                    if(buttonId == "decrement-amount")
-                    {
-                        let num =  $("#amount").text();
-                        if(num>0)
-                        {
-                            num--
-                            $("#amount").text(num);
-                        }
-                    }
-                    if(buttonId == "decrement-bathroom")
-                    {
-                        let num =  $("#bathroom").text();
-                        if(num>0)
-                        {
-                            num--
-                            $("#bathroom").text(num);
-                        }
-                    }
-                    // $("#countBedRoom").text(count);
-                }
+            $("#increment-bedroom").click(function(){
+                var buttonName = $(this).attr("id");
+                let num =  $("#countBedRoom").text();
+                num++
+                $("#countBedRoom").text(num);
+            });
 
+            $("#decrement-bedroom").click(function(){
+                var buttonName = $(this).attr("id");
+                let num =  $("#countBedRoom").text();
+               if(num>0)
+               {
+                num--
+                $("#countBedRoom").text(num);
+               }
+            });
+
+            $("#increment-singleRoom").click(function(){
+                let num =  $("#singleRoom").text();
+                num++
+                $("#singleRoom").text(num);
+            });
+            $("#decrement-singleRoom").click(function(){
+                var buttonName = $(this).attr("id");
+                let num =  $("#singleRoom").text();
+               if(num>0)
+               {
+                num--
+                $("#singleRoom").text(num);
+               }
+            });
+
+            
+            $("#increment-amount").click(function(){
+                let num =  $("#amount").text();
+                num++
                 
-                // Display the id in an alert (you can do something else with it)
-                // alert("Button ID: " + buttonId);
+                $("#amount").text(num);
+            });
+            $("#decrement-amount").click(function(){
+                var buttonName = $(this).attr("id");
+                let num =  $("#amount").text();
+                if(num>0)
+                {
+                    num--
+                $("#amount").text(num);
+                }
+            });
+            
+            $("#increment-bathroom").click(function(){
+                let num =  $("#bathroom").text();
+                num++
+                
+                $("#bathroom").text(num);
+            });
+            $("#decrement-bathroom").click(function(){
+                var buttonName = $(this).attr("id");
+                let num =  $("#bathroom").text();
+               if(num>0)
+               {
+                num--
+                $("#bathroom").text(num);
+               }
             });
             $("#addRoom").click(function(e) {
                 var newDiv = $(
@@ -335,6 +314,16 @@
                 );
                 e.preventDefault();
                 $("#test").append(newDiv);
+            });
+
+            $("#btn-manage").click(function(){
+                $(".body").hide()
+                console.log("check hide")
+            });
+            
+            $("#btn-manage-edit").click(function(){
+                $(".body").show()
+                console.log("check hide")
             });
         });
     </script>

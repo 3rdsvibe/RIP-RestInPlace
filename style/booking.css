@@ -57,6 +57,12 @@ header nav{
     /* color: white; */
 
 }
+
+.btn-manage:active{
+    background-color: green;
+
+
+}
 .top{
     display: flex;
     flex-direction: column;
@@ -69,12 +75,12 @@ header nav{
 
 }
 button.btn-room {
-    height: 60%;
+    height: 100%;
   
     width: 10%;
 }
 .top-body{
-    height: 200px;
+    height: 90px;
 }
 
 .top-body .move-right {
