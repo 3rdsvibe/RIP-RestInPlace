@@ -136,40 +136,41 @@
                 <hr color="gray">
                 <div class="test" id = "test"></div>
                 <a style="color: #59A3B4;"  href="" id = "addRoom">เพิ่มห้องพักประเภทอื่น</a>
-                <div class="nameAddress" >
+                <div class="box-address">
                     <h2>ชื่อที่พัก</h2>
                     <div class="input-group flex-nowrap">
                         <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                     </div>
-                    <div class="box-address">
-                        <h2>ตำแหน่งที่ตั้ง</h2>
-                        
-                        <div class="group-address">
-                            <div class="address">
-                                <label>ที่อยู่</label><br/>
-                                <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                    <h2>ตำแหน่งที่ตั้ง</h2>
+                    <div class="group-address">
+                        <div class="address">
+                            <label>ที่อยู่</label><br/>
+                            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                        </div>
+                        <div class="fix-item-address">
+                            <div class="item">
+                                <labe>ประเทศ</labe><br/>
+                                <input type="text" class="form-control country" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                             </div>
-                            <div class="fix-item-address">
-                                <div class="item">
-                                    <labe>ประเทศ</labe><br/>
-                                    <input type="text" class="form-control country" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-                                <div class="item">
-                                    <labe>จังหวะ</labe><br/>
-                                    <input type="text" class="form-control apv" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-                                <div class="item">
-                                    <labe>เมือง</labe><br/>
-                                    <input type="text" class="form-control city" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
-                                <div class="item">
-                                    <labe>รหัสไปรษณีย์</labe><br/>
-                                    <input type="text" class="form-control zip" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
-                                </div>
+                            <div class="item">
+                                <labe style="margin-left:15px">จังหวัด</labe><br/>
+                                <input type="text" class="form-control apv" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="item">
+                                <labe>เมือง</labe><br/>
+                                <input type="text" class="form-control city" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="item">
+                                <labe>รหัสไปรษณีย์</labe><br/>
+                                <input type="text" class="form-control zip" placeholder="" aria-label="Username" aria-describedby="addon-wrapping">
                             </div>
                         </div>
+                        <div class="box-Convenience">
+                            <h2>สิ่งอำนวยความสะดวก</h2>
+                            <textarea id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
+                        </div>
                     </div>
-                </div> 
+                </div>
             </div>   
         </div>
     </div>
