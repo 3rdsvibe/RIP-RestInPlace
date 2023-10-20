@@ -52,7 +52,7 @@
         <div class="container-body">
             <div class="header">
                 <button type="button" class="btn-manage">แก้ไขข้อมูลที่พัก</button>
-                <button type="button"  class="btn-manage">เพิ่มข้อมูลที่พัก</button>
+                <button type="button"  class="btn-manage-edit">เพิ่มข้อมูลที่พัก</button>
             </div>
             <div class="top">
                 <div class="title">
@@ -169,12 +169,30 @@
                             <h2>สิ่งอำนวยความสะดวก</h2>
                             <textarea id="w3review" name="w3review" rows="4" cols="50">At w3schools.com you will learn how to make a website. They offer free tutorials in all web development technologies.</textarea>
                         </div>
+                        <div class="box-imag-address">
+                            <h2 style="padding-top:20px">ภาพที่พัก</h2>
+                            <div class="all-images">
+                                <img src="logo.png" id="logo" width="25%" height="25%">
+                                <img src="logo.png" id="logo" width="25%" height="25%">
+                                <img src="logo.png" id="logo" width="25%" height="25%">
+                                <img src="logo.png" id="logo" width="25%" height="25%">
+                            </div>
+                            <div class="btn-confirm-edit">
+                                <button type="button" class="btn-edit">ยืนยันการแก้ไข</button>
+                            </div>
+                           
+                        </div>
                     </div>
                 </div>
-            </div>   
+            </div>  
+             
         </div>
     </div>
+    <!-- <div class="container-add-room">
+        <form>
 
+        </form>
+    </div> -->
     <script>
         $(document).ready(function() {
             var countBedRoom = 0; // Initialize countBedRoom to 0

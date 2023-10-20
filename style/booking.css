@@ -53,8 +53,8 @@ header nav{
     width: 48%;
     height: 40px;
     border-radius: 10px;
-    background-color: #59A3B4;
-    color: white;
+    /* background-color: #59A3B4; */
+    /* color: white; */
 
 }
 .top{
@@ -198,4 +198,22 @@ textarea#w3review {
 }
 .box-Convenience{
     margin-top: 5px;
+}
+.all-images{
+    display: flex;
+}
+.box-imag-address{
+   
+    
+}
+.btn-confirm-edit{
+    margin: 0 auto;
+    width: 10%;
+}
+.btn-edit{
+    background-color: #59A3B4;
+    color: white;
+    border-radius: 10px;
+    height: 50px;
+    width: 150px;
 }
