@@ -1,14 +1,11 @@
 <?php
 require_once 'connection.php';
-$sql = "SELECT * from hotel join photo using(hotel_id) join locations using(location_id) join rooms using(hotel_id)";
-$all_hotel = $conn->query($sql);
-$data = mysqli_fetch_assoc($all_hotel);
 
-$minRoomPriceQuery = "SELECT MIN(rooms.room_price) AS min_price FROM rooms WHERE rooms.hotel_id = '1'";
-$minRoomPriceResult = $conn->query($minRoomPriceQuery);
-$minPriceData = mysqli_fetch_assoc($minRoomPriceResult);
-$minPrice = $minPriceData["min_price"];
-
+$sql = "SELECT DISTINCT hotel.hotel_id, hotel.hotel_name, photo.photo_url, MIN(rooms.room_price) AS min_price FROM hotel
+JOIN rooms USING (hotel_id)
+JOIN locations ON hotel.location_id = locations.location_id
+JOIN photo USING (hotel_id)
+GROUP BY hotel.hotel_id;";
 /*session_start();
 
 // page redirect
@@ -52,7 +49,7 @@ if($usermail == true){
         nav {
             position: fixed;
             top: 0;
-            width: 99%;
+            width: 100%;
             height: 70px;
             background-color: #ffffff;
         }
@@ -120,10 +117,8 @@ if($usermail == true){
         body {
             font-family: 'Athiti', sans-serif;
             background-image: url("https://i.pinimg.com/564x/62/95/79/629579823c4b0f350238522d1067dfb2.jpg");
-            background-size: 50%;
+            background-size: 100%;
         }
-
-
 
         select {
             width: 75%;
@@ -189,6 +184,7 @@ if($usermail == true){
 
         .hotels {
             display: inline-block;
+            display: flex;
 
         }
 
@@ -209,7 +205,7 @@ if($usermail == true){
             background: rgb(222, 222, 222);
             width: 310px;
             flex-shrink: 0;
-            text-align: center;
+            text-align: left;
             /* จัดให้อยู่กึ่งกลางข้อความ */
             padding: 10px;
             /* เพิ่มระยะห่างข้อความ */
@@ -283,7 +279,7 @@ if($usermail == true){
             background-color: white;
             color: black;
             width: 100%;
-
+            border: 0px;
         }
 
         /* กำหนดขนาดของช่อง */
@@ -313,7 +309,7 @@ if($usermail == true){
     <nav>
         <a href="home.php"><img src="RIP.png" width="80px" height="80px"></a>
         <ul>
-            <li><a href="sign_in.html">เข้าสู่ระบบ</a></li>
+            <li><a href="login.php">เข้าสู่ระบบ</a></li>
             <li><a href="sign_up.html"><button type="submit" value="สมัครสมาชิก" class="signup">สมัครสมาชิก</button></a>
             </li>
             <li>
@@ -342,26 +338,26 @@ if($usermail == true){
     <br>
     <br>
 
-    <form id="cover">
+    <form id="cover" action="search_room.php" method="POST">
         <div class="tile" id="tile-1">
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs nav-justified" role="tablist">
                 <div class="slider"></div>
                 <li class="nav-item">
-                    <a class="nav-link active" id="all-tab" onclick="loadHotelData('all')" data-toggle="tab" href="#" role="tab" aria-controls="all" aria-selected="true">ที่พักทั้งหมด</a>
+                <a class="nav-link active" id="all-tab" onclick="loadHotelData('all')" name="all" role="tab" aria-controls="all" aria-selected="true">ที่พักทั้งหมด</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="condo-tab" onclick="loadHotelData('condo')" data-toggle="tab" href="#" role="tab" aria-controls="condo" aria-selected="false">คอนโด/อพาร์ตเมนต์</a>
+                    <a class="nav-link" id="condo-tab" onclick="loadHotelData('condo')" name="condo" role="tab" aria-controls="condo" aria-selected="false">คอนโด/อพาร์ตเมนต์</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="cottage-tab" onclick="loadHotelData('cottage')" data-toggle="tab" href="#" role="tab" aria-controls="cottage" aria-selected="false">บังกะโล</a>
+                    <a class="nav-link" id="cottage-tab" onclick="loadHotelData('cottage')" name="cottage" role="tab" aria-controls="cottage" aria-selected="false">บังกะโล</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="house-tab" onclick="loadHotelData('house')" data-toggle="tab" href="#" role="tab" aria-controls="house" aria-selected="false">บ้านเดี่ยว</a>
+                    <a class="nav-link" id="house-tab" onclick="loadHotelData('house')" name="house" role="tab" aria-controls="house" aria-selected="false">บ้านเดี่ยว</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="villa-tab" onclick="loadHotelData('villa')" data-toggle="tab" href="#" role="tab" aria-controls="villa" aria-selected="false">วิลลา</a>
+                    <a class="nav-link" id="villa-tab" onclick="loadHotelData('villa')" name="villa" role="tab" aria-controls="villa" aria-selected="false">วิลลา</a>
                 </li>
             </ul>
 
@@ -371,15 +367,12 @@ if($usermail == true){
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 39 39" fill="none">
                 <path d="M15.6096 3.90039C12.5046 3.90039 9.52688 5.13389 7.33136 7.32954C5.13583 9.52519 3.9024 12.5031 3.9024 15.6083C3.9024 18.7134 5.13583 21.6913 7.33136 23.887C9.52688 26.0826 12.5046 27.3161 15.6096 27.3161C18.7145 27.3161 21.6923 26.0826 23.8878 23.887C26.0833 21.6913 27.3168 18.7134 27.3168 15.6083C27.3168 12.5031 26.0833 9.52519 23.8878 7.32954C21.6923 5.13389 18.7145 3.90039 15.6096 3.90039ZM9.64209e-08 15.6083C0.000355754 13.124 0.59359 10.6756 1.7304 8.46673C2.86721 6.25784 4.51476 4.35217 6.53613 2.90812C8.55751 1.46406 10.8943 0.523321 13.3524 0.164078C15.8104 -0.195164 18.3187 0.0374668 20.6687 0.842638C23.0188 1.64781 25.1428 3.00226 26.8641 4.79344C28.5855 6.58461 29.8545 8.76078 30.5657 11.1411C31.277 13.5214 31.4099 16.037 30.9534 18.479C30.4969 20.921 29.4642 23.2188 27.9412 25.1814L38.4523 35.6931C38.8077 36.0611 39.0044 36.554 38.9999 37.0656C38.9955 37.5773 38.7903 38.0667 38.4285 38.4285C38.0667 38.7903 37.5774 38.9955 37.0658 38.9999C36.5542 39.0044 36.0613 38.8077 35.6933 38.4522L25.1822 27.9405C22.8748 29.732 20.111 30.8401 17.2052 31.1387C14.2994 31.4373 11.3681 30.9145 8.74458 29.6297C6.12111 28.345 3.91077 26.3498 2.3649 23.8711C0.819033 21.3923 -0.000324524 18.5296 9.64209e-08 15.6083Z" fill="black" />
             </svg>
-            <?php
-            $countries = array("Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe");
-            ?>
-
-            <select id="place">
+            <select id="place" name="going_to">
                 <option value="0">คุณจะไปที่ไหน?</option>
-                <option value="1">กรุงเทพ</option>
-                <option value="2">ชลบุรี</option>
+                <option value="กรุงเทพ">กรุงเทพ</option>
+                <option value="ชลบุรี">ชลบุรี</option>
             </select>
+
         </p>
 
 
@@ -388,22 +381,10 @@ if($usermail == true){
             <div class="col-6">
                 <p class="same_line">
                     <label for="fdate">วันเช็คอิน</label>
-                    <input type="date" id="fdate" name="fdate" max="ldate">
+                    <input type="date" data-date="" data-date-format="YYYY MMMM DD" id="fdate" name="fdate" max="ldate">
                     <label for="ldate">วันเช็คเอาท์</label>
                     <input type="date" id="ldate" name="ldate" /></input>
                 </p>
-                <!--<p>
-                    <input type="text" name="daterange" value="27/10/2023 - 28/10/2023" style="width: 75%;" />
-                </p>
-                <script>
-                    $(function() {
-                        $('input[name="daterange"]').daterangepicker({
-                            opens: 'left'
-                        }, function(start, end, label) {
-                            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-                        });
-                    });
-                </script> -->
             </div>
             <div class="col-6">
                 <div class="dropdown">
@@ -422,7 +403,7 @@ if($usermail == true){
                         <li class="room">
                             <p class="dropdown-item">ห้อง
                                 <button class="btn minusButton" data-target="quantityRoom">-</button>
-                                <input type="number" id="quantityRoom" class="form-control" min="1" value="1" placeholder="1 ห้อง">
+                                <input type="number" id="quantityRoom" name="quantityRoom" class="form-control" min="1" value="1" placeholder="1 ห้อง">
 
                                 <button class="btn plusButton" data-target="quantityRoom">+</button>
                             </p>
@@ -430,7 +411,7 @@ if($usermail == true){
                         <li class="adult">
                             <p class="dropdown-item">ผู้เข้าพัก
                                 <button class="btn minusButton" data-target="quantityAdults">-</button>
-                                <input type="number" id="quantityAdults" class="form-control" min="1" value="1" placeholder="ผู้เข้าพัก 1">
+                                <input type="number" id="quantityAdults" name="quantityAdults" class="form-control" min="1" value="1" placeholder="ผู้เข้าพัก 1">
                                 <button class="btn plusButton" data-target="quantityAdults">+</button>
                             </p>
                         </li>
@@ -438,47 +419,13 @@ if($usermail == true){
                 </div>
             </div>
         </div>
-        <br>
         <div>
-            <a href="search_room.php"><button type="button" class="search" onclick="searchRooms()">ค้นหา</button></a>
-
+            <input type="submit" value="ค้นหา" class="search">
         </div>
     </form>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-// เมื่อคลิกปุ่ม "ค้นหา"
-function searchRooms() {
-    var place = document.getElementById("place");
-    var going_to = place.options[place.selectedIndex].text;
-    var fdate = document.getElementById("fdate").value;
-    var ldate = document.getElementById("ldate").value;
-    var quantityRoom = document.getElementById("quantityRoom").value;
-    var quantityAdults = document.getElementById("quantityAdults").value;
-
-    // สร้าง XMLHttpRequest object
-    var xhttp = new XMLHttpRequest();
-
-    // กำหนดการเรียกใช้งานเมื่อข้อมูลถูกโหลดเสร็จ
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("search-results").innerHTML = this.responseText;
-        }
-    };
-
-    // ส่งข้อมูลไปยัง PHP script
-    xhttp.open("POST", "search_room.php", true);
-
-    // ต้องการส่งข้อมูลในรูปแบบข้อมูลแบบฟอร์ม
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-    // ส่งข้อมูลในรูปแบบข้อมูลแบบฟอร์ม
-    xhttp.send("going_to=" + going_to + "&fdate=" + fdate + "&ldate=" + ldate + "&quantityRoom=" + quantityRoom + "&quantityAdults=" + quantityAdults);
-}
-
-
-    </script>
     <!--ทำให้วันที่ต้องการเช็คอิน ไม่เกินวันเช็คเอาท์-->
     <script>
         //date
@@ -607,8 +554,8 @@ function searchRooms() {
                 }
             };
 
-            // ส่งคำขอ GET ไปยัง PHP script พร้อม tabId ที่ถูกเลือก
-            xhttp.open("GET", "search.php?tabId=" + tabId, true);
+            // ส่งคำขอ POST ไปยัง PHP script พร้อม tabId ที่ถูกเลือก
+            xhttp.open("POST", "search_room.php?tabId=" + tabId, true);
             xhttp.send();
         }
     </script>
@@ -687,7 +634,7 @@ function searchRooms() {
         });
     </script>
     <!--จบ + - ห้อง ผู้เข้าพัก-->
-
+    <br><br>
     <div class="cover2">
         <br>
         <br>
@@ -695,50 +642,57 @@ function searchRooms() {
         <br>
         <br>
         <section class="center">
-            <p class="hotels">
-                <a href="each_hotel.php"><img src="<?php echo $data["photo_url"]; ?>" width="300px" height="300px" id="hotel_img"></a>
+            <style>
+                .hotel-container {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;
+                    transform: translateX(20px);
+                }
 
-            </p>
-            <p class="hotels">
-                <a href="each_hotel.php"><img src="<?php echo $data["photo_url"]; ?>" width="300px" height="300px" id="hotel_img"></a>
-            </p>
-            <p class="hotels">
-                <a href="each_hotel.php"><img src="<?php echo $data["photo_url"]; ?>" width="300px" height="300px" id="hotel_img"></a>
-            </p>
-            <p class="hotels">
-                <a href="each_hotel.php"><img src="<?php echo $data["photo_url"]; ?>" width="300px" height="300px" id="hotel_img"></a>
-            </p>
+                .hotel-entry {
+                    text-align: left;
+                }
+            </style>
+            <div class="hotel-container">
+                <?php
+                $sql = "SELECT DISTINCT hotel.hotel_id, hotel.hotel_name, photo.photo_url, locations.address, MIN(rooms.room_price) AS min_price FROM hotel
+            JOIN photo USING (hotel_id)
+            JOIN locations USING (location_id)
+            JOIN rooms USING (hotel_id)
+            GROUP BY hotel.hotel_id;";
+                $all_hotels = $conn->query($sql);
+
+                while ($data = mysqli_fetch_assoc($all_hotels)) {
+                    $minPriceQuery = "SELECT MIN(room_price) AS min_price FROM rooms WHERE hotel_id = " . $data["hotel_id"];
+                    $minPriceResult = $conn->query($minPriceQuery);
+                    $minPriceData = mysqli_fetch_assoc($minPriceResult);
+                    $minPrice = "THB ".$minPriceData["min_price"];
+                ?>
+                    <div class="hotel-entry">
+                        <p class="hotels">
+                            <a href="each_hotel.php?hotel_id=<?php echo $data["hotel_id"]; ?>"><img src="<?php echo $data["photo_url"]; ?>" width="300px" height="300px" id="hotel_img"></a>
+                        </p>
+                        <p class="hotels" id="hotel_des">
+                            <a href="each_hotel.php?hotel_id=<?php echo $data["hotel_id"]; ?>"><span style="display: block; text-align: left;">
+                            <span style="color: black;"> <b><?php echo $data["hotel_name"]; ?></b><br>
+                                <?php echo $data["address"]; ?><br></span>
+                                <span style="color: red;"><?php echo "ราคา (เริ่มต้น) " . $minPrice; ?></span>
+                            </span></a>
+                        </p>
+
+                    </div>
+                <?php
+                }
+                ?>
+            </div>
         </section>
-        <section class="center">
-            <p class="hotels" id="hotel_des">
-                <?php echo $data["hotel_name"]; ?>
-                <br>
-                <?php echo $data["address"]; ?>
-                <br>
-                <?php echo "THB " . $minPrice; ?>
-            </p>
-            <p class="hotels" id="hotel_des">
-                <?php echo $data["hotel_name"]; ?>
-                <br>
-                <?php echo $data["address"]; ?>
-                <br>
-                <?php echo "THB " . $minPrice; ?>
-            </p>
-            <p class="hotels" id="hotel_des">
-                <?php echo $data["hotel_name"]; ?>
-                <br>
-                <?php echo $data["address"]; ?>
-                <br>
-                <?php echo "THB " . $minPrice; ?>
-            </p>
-            <p class="hotels" id="hotel_des">
-                <?php echo $data["hotel_name"]; ?>
-                <br>
-                <?php echo $data["address"]; ?>
-                <br>
-                <?php echo "THB " . $minPrice; ?>
-            </p>
-        </section>
+
+
+
+
+
+        <p>&nbsp;2023 Rest In Place, Inc.&nbsp;<a href="privacy.html">Privacy</a></p>
     </div>
 </body>
 
