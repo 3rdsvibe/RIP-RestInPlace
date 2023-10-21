@@ -1,26 +1,28 @@
 <?php
 require_once 'connection.php';
+$hotel_id = $_GET["hotel_id"];
+
 
 // Query สำหรับดึงข้อมูลโรงแรม
-$sql = "SELECT * FROM hotel WHERE hotel_id = '1'";
+$sql = "SELECT * FROM hotel WHERE hotel_id = ".$hotel_id;
 $hotel_des = $conn->query($sql);
 $hotelData = mysqli_fetch_assoc($hotel_des);
 
-$location = "SELECT * from locations join hotel using(location_id) where hotel_id='1'";
+$location = "SELECT * from locations join hotel using(location_id) where hotel_id = ".$hotel_id;
 $hotel_location = $conn->query($location);
 $address = mysqli_fetch_assoc($hotel_location);
 
-$feedback = "SELECT * from comments join hotel using(hotel_id) join customer using(customer_id) where hotel_id='1'";
+$feedback = "SELECT * from comments join hotel using(hotel_id) join customer using(customer_id) where hotel_id = ".$hotel_id;
 $comment = $conn->query($feedback);
 
 // Query สำหรับดึงข้อมูลรูปภาพห้องแต่ละห้อง
 $roomPhotosQuery = "SELECT room.room_id, room.room_details, room.room_type, room.room_price, photo.photo_url 
                     FROM rooms AS room
                     LEFT JOIN photo AS photo ON room.room_id = photo.room_id 
-                    WHERE room.hotel_id = '1'";
+                    WHERE room.hotel_id = ".$hotel_id;
 $roomPhotosResult = $conn->query($roomPhotosQuery);
 
-$minRoomPriceQuery = "SELECT MIN(rooms.room_price) AS min_price FROM rooms WHERE rooms.hotel_id = '1'";
+$minRoomPriceQuery = "SELECT MIN(rooms.room_price) AS min_price FROM rooms WHERE rooms.hotel_id = ".$hotel_id;
 $minRoomPriceResult = $conn->query($minRoomPriceQuery);
 $minPriceData = mysqli_fetch_assoc($minRoomPriceResult);
 $minPrice = $minPriceData["min_price"];
@@ -51,6 +53,7 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css">
     <style>
         /*ฟอนต์ google ที่นำมาใช้*/
         @import url('https://fonts.googleapis.com/css2?family=Athiti&display=swap');
@@ -59,7 +62,7 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
         nav {
             position: fixed;
             top: 0;
-            width: 99%;
+            width: 100%;
             height: 70px;
             background-color: #ffffff;
         }
@@ -106,6 +109,13 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
             background-color: #ffffff;
         }
 
+        .dropdown .btn-secondary {
+            background-color: white;
+            color: black;
+            width: 100%;
+            border: 0px;
+        }
+
         /*จบแถบด้านบน*/
 
         body {
@@ -125,8 +135,9 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
 
         .left {
             text-align: left;
-            padding: 20px;
+            padding: 30px;
             flex: 1;
+            margin: 5;
         }
 
         .right {
@@ -138,6 +149,8 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
         .cover {
             background-color: #ffffff;
             border-radius: 20px 20px 20px 20px;
+            width:98%;
+            margin-left: 12px;
         }
 
         .same_line {
@@ -159,16 +172,55 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
             border-radius: 10px 10px 10px 10px;
             background-color: #EFF3F4;
             position: absolute;
-            right: 30px;
+            right: 40px;
             text-align: justify;
         }
 
         .box2 {
-            width: 80%;
-            height: 50%;
-            padding: 20px;
-            border: 1px solid red;
+            width: 70%;
+            height: 60%;
+            border: 1px solid #87CEFA;
             border-radius: 20px 20px 20px 20px;
+            transform: translateX(200px);
+        }
+
+        .room-info {
+            display: flex;
+            align-items: center;
+        }
+
+
+        .price {
+            font-size: 30px;
+            color: red;
+            text-align: right;
+            margin: 5px;
+        }
+
+        .start-price {
+            font-size: 14px;
+            color: black;
+            text-align: right;
+            margin: 5px;
+        }
+
+        .reserve-button {
+            text-align: right;
+            margin: 5px;
+        }
+
+        .reserve-button a {
+            text-decoration: none;
+        }
+
+        .book {
+            background-color: #59A3B4;
+            font-family: 'Athiti', sans-serif;
+            font-size: 20px;
+            color: #ffffff;
+            margin: 0;
+            width: 160px;
+            height: 50px;
         }
     </style>
 </head>
@@ -181,22 +233,31 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
             <li><a href="sign_in.html">เข้าสู่ระบบ</a></li>
             <li><a href="sign_up.html"><button type="submit" value="สมัครสมาชิก" class="signup">สมัครสมาชิก</button></a>
             </li>
+            <li>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="47" viewBox="0 0 72 62" fill="none">
+                            <rect width="72" height="62" rx="10" fill="#59A3B4" />
+                            <path d="M54 15H19V18.2H54V15Z" fill="white" />
+                            <path d="M54 29.3999H19V32.5999H54V29.3999Z" fill="white" />
+                            <path d="M54 43.7999H19V46.9999H54V43.7999Z" fill="white" />
+                        </svg>
+                    </button>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <!--<li class="action-item"><a class="dropdown-item" href="#">การจองของฉัน</a></li>
+                        <li class="another-action-item"><a class="dropdown-item" href="#">ออกจากระบบ</a></li>-->
+                        <li><a class="dropdown-item" href="#">การจองของฉัน</a></li>
+                        <li><a class="dropdown-item" href="#">ออกจากระบบ</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </nav>
     <br><br><br><br>
     <div class="cover">
         <div>
-            <p class="same_line">
-                <?php
-                $i = 0; // กำหนดตัวแปร i เพื่อนับรูปภาพ
-                while ($row = mysqli_fetch_assoc($roomPhotosResult) && $i < 3) { // ลูปเรียกข้อมูลรูปภาพ
-                ?>
-                    <img src="<?php echo $row["photo_url"]; ?>" width="300px" height="300px">
-                <?php
-                    $i++; // เพิ่มค่าตัวแปร i เมื่อแสดงรูปภาพแล้ว
-                }
-                ?>
-            </p>
             <div class="same_line">
                 <h2 class="left"><?php echo $hotelData["hotel_name"]; ?></h2>
                 <p class="left"><?php echo $address["address"]; ?></p>
@@ -206,38 +267,52 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
                 <h2 class="right"><?php echo "THB " . $minPrice; ?></h2>
             </div>
         </div>
+        <br>
+        <div class="box2">
+            <p class="left"><?php echo $hotelData["convenient"]; ?></p>
+        </div>
+        <br>
         <?php foreach ($typeData as $roomType => $typeInfo) { ?>
             <section class="center">
-                <p class="same_line">
-                <h2 class="left">
-                    <?php echo $roomType; ?>
-                </h2>
-                </p>
-                <p class="hotels">
-                    <?php foreach ($typeInfo["rooms"] as $room) { ?>
-                        <a href="">
-                            <img src="<?php echo $room["photos"][0]; ?>" width="200px" height="200px" style="border-radius: 20px 20px 20px 20px;" id="hotel_img">
-                        </a>
-                    <?php } ?>
-                </p>
-                &nbsp;
+                <div class="box2">
+                    <div class="room-info">
+                        <h2 class="left">
+                            <?php echo $roomType; ?>
+                        </h2>
 
-
-                <p class="right">ราคาเริ่มต้น(ต่อคืน)</p>
-                <h2 class="right">
-                    <?php echo "THB " . $typeInfo["price"]; ?>
-                </h2>
+                        <p class="hotels">
+                            <?php foreach ($typeInfo["rooms"] as $room) { ?>
+                                <a href="">
+                                    <img src="<?php echo $room["photos"][0]; ?>" width="200px" height="200px" style="border-radius: 20px 20px 20px 20px;" id="hotel_img">
+                                </a>
+                            <?php } ?>
+                        </p>
+                        <p class="price">
+                            <?php echo "THB " . $typeInfo["price"]; ?>
+                        </p>
+                        <p class="start-price">
+                            ราคาเริ่มต้น (ต่อคืน)
+                        </p>
+                        <p class="reserve-button">
+                            <a href="reserve.php?room_id=<?php echo $room["room_id"]; ?>">
+                                <input type="button" value="จองเลย" class="book">
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <br>
             </section>
+
         <?php
         }
         ?>
         <div>
-            <p class="left" style="font-size: 32px; font-weight: 900;" >รีวิวจากผู้เข้าพักจริง</p>
+            <p class="left" style="font-size: 32px; font-weight: 900;">รีวิวจากผู้เข้าพักจริง</p>
             <?php while ($all_comment = mysqli_fetch_assoc($comment)) { ?>
                 <div class="container">
                     <div class="left">
                         <p style="font-size: 40px; color:#59A3B4;">
-                            <b><?php echo number_format( $all_comment["comment_score"], 2 ); ?></b>
+                            <b><?php echo number_format($all_comment["comment_score"], 2); ?></b>
                         </p>
                         <p style="font-size: 20px;">
                             <b><?php echo $all_comment["customer_firstname"]; ?></b>
@@ -254,13 +329,64 @@ while ($row = mysqli_fetch_assoc($roomPhotosResult)) {
                 <p style="text-align:center; color:#59A3B4;">______________________________________________________________________________________________________________________________________________________</p>
             <?php } ?>
             <form action="process_comment.php" method="post">
-            <input type="number" min=0 max=5 placeholder="ให้คะแนน ต่ำสุด 0 มากสุด 5" style="width:17%; font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px;">
-            <input type="text" name="name" placeholder="=ชื่อ">
-            <input type="text" name="comment" placeholder="เขียนรีวิวที่นี่" size="200" style="height:60px; width:94%; font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px;">
-            <button type="submit" style="font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px; background-color:#ADD8E6;" >ส่ง</button>
+                <h2 class="left">กรอกความคิดเห็น</h2>
+                <p><input type="text" name="name" placeholder="ชื่อ" style="width:17%; font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px;">
+                <input type="number" min=0 max=5 placeholder="ให้คะแนน ต่ำสุด 0 มากสุด 5" style="width:17%; font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px;"></p>
+                <p><input type="text" name="comment" placeholder="เขียนความคิดเห็นที่นี่" size="200" style="height:60px; width:94%; font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px;"></p>
+                <button type="submit" style="font-size:20px; font-family:'Athiti', sans-serif; margin-left:35px; background-color:#ADD8E6;">ส่งความคิดเห็น</button>
+                <p><br></p>
             </form>
         </div>
+        <!--เกี่ยวกับการแสดงผลของแถบด้านบน เวอร์ชั่นที่ใช้-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- จัดการการแสดงผลของรายการแถบ Dropdown -->
+        <script>
+            // รับอ้างอิงถึงรายการแถบ Dropdown
+            var actionItem = document.querySelector(".action-item");
+            var anotherActionItem = document.querySelector(".another-action-item");
+            var somethingElseItem = document.querySelector(".something-else-item");
 
+            // ซ่อนรายการแถบแรกและรายการที่สอง
+            actionItem.style.display = "none";
+            anotherActionItem.style.display = "none";
+            somethingElseItem.style.display = 'none';
+
+            // รับอ้างอิงถึงปุ่ม Dropdown
+            var dropdownButton = document.getElementById("dropdownMenuButton");
+
+            // สร้างตัวแปรสำหรับตรวจสอบสถานะแถบ Dropdown
+            var isDropdownOpen = false;
+
+            // เมื่อคลิกที่ปุ่ม Dropdown
+            dropdownButton.addEventListener("click", function() {
+                if (isDropdownOpen) {
+                    // ถ้าแถบ Dropdown เปิดอยู่ให้ปิด
+                    actionItem.style.display = "none";
+                    anotherActionItem.style.display = "none";
+                    somethingElseItem.style.display = 'none';
+                    isDropdownOpen = false;
+                } else {
+                    // แสดงรายการแถบ Dropdown เมื่อคลิก
+                    actionItem.style.display = "block";
+                    anotherActionItem.style.display = "block";
+                    somethingElseItem.style.display = 'block';
+                    isDropdownOpen = true;
+                }
+            });
+            var locationSelect = document.getElementById("locationSelect");
+
+            // เมื่อคลิกที่ option
+            locationSelect.addEventListener("change", function() {
+                // ดึงค่า URL จาก option ที่เลือก
+                var selectedOption = locationSelect.options[locationSelect.selectedIndex];
+                var url = selectedOption.value;
+
+                // เปิดลิงก์ไปยัง URL ที่กำหนด
+                if (url) {
+                    window.location.href = url;
+                }
+            });
+        </script>
 </body>
 
 </html>
