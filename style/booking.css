@@ -59,11 +59,6 @@ header nav{
 
 }
 
-.btn-manage:active{
-    background-color: green;
-
-
-}
 .top{
     display: flex;
     flex-direction: column;
@@ -71,9 +66,14 @@ header nav{
 .top .top-body .btn-room{
    
     border-radius: 10px;
-    background-color: #59A3B4;
-    color: white;
+    /* background-color: #59A3B4; */
+    /* color: white; */
 
+
+}
+.top .top-body .btn-room.active {
+    background-color: #59A3B4;
+    color: #fff;
 }
 button.btn-room {
     height: 100%;
@@ -86,6 +86,10 @@ button.btn-room {
 
 .top-body .move-right {
     margin-left: 50px; /* Adjust the margin as needed */
+}
+.top-body .move-right.active{
+    background-color: #59A3B4;
+    color: #fff;
 }
 a:is(:link,:active,:visited).active{
    color:#59A3B4;
@@ -206,7 +210,8 @@ textarea#w3review {
 .box-Convenience{
     margin-top: 5px;
 }
-.all-images{
+.all-images {
+    border: 2px solid black;
     display: flex;
 }
 .box-imag-address{
@@ -216,6 +221,7 @@ textarea#w3review {
 .btn-confirm-edit{
     margin: 0 auto;
     width: 10%;
+    margin-top: 20px;
 }
 .btn-edit{
     background-color: #59A3B4;
@@ -223,6 +229,7 @@ textarea#w3review {
     border-radius: 10px;
     height: 50px;
     width: 150px;
+    border: none;
 }
 .switch{
     position: relative;
@@ -264,6 +271,9 @@ textarea#w3review {
     font-size: 16px;
     cursor: pointer;
 }
+.btn-room{
+    cursor:pointer
+}
 
 /* Style the active button differently */
 .toggle-button.active {
@@ -273,6 +283,14 @@ textarea#w3review {
 button#btn1,button#btn2 {
     width: 30%;
     border-radius: 20px;
+}
+.btn-add-room{
+    background-color: #59A3B4;
+    color: white;
+    border-radius: 10px;
+    height: 50px;
+    width: 150px;
+    border: none;
 }
 
 /* Initially, hide the second button */
