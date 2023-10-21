@@ -83,7 +83,7 @@
         /*จบแถบด้านบน*/
 
         #cover {
-            background-color: #eeeeee;
+            background-color: #ffffff;
             text-align: center;
             width: 90%;
             height: 85%;
@@ -372,6 +372,7 @@
 
 <form id="cover">
     <div class="tile" id="tile-1">
+        <br>
         <h2>รายการจอง</h2>
 
         <?php
@@ -393,18 +394,12 @@
         $result = $conn->query($sql);
 
         if ($result->num_rows > 0) {
-            echo '<div class="table-responsive">';
-            echo '<table class="table"><tr><th>ชื่อที่พัก</th><th>วันเช็คอิน</th><th>วันเช็คเอาท์</th><th>อาหารเช้า</th><th>ราคา</th><th>สถานะการจอง</th><th>เพิ่มเติม</th></tr>';
+            echo '<table class="table"><tr><th>ชื่อที่พัก</th><th>วันเช็คอิน</th><th>วันเช็คเอาท์</th><th>ราคา</th><th>สถานะการจอง</th><th>เพิ่มเติม</th></tr>';
         
             while ($row = $result->fetch_assoc()) {
                 echo "<tr><td>" . (isset($row['hotel_name']) ? $row['hotel_name'] : "") . "</td>";
                 echo "<td>" . (isset($row['check_in_time']) ? $row['check_in_time'] : "") . "</td>";
                 echo "<td>" . (isset($row['check_out_time']) ? $row['check_out_time'] : "") . "</td>";
-                if ($row['breakfast'] == 1) {
-                    echo "<td>รับ</td>";
-                } else {
-                    echo "<td>ไม่รับ</td>";
-                }
                 echo "<td>" . (isset($row['amount']) ? $row['amount'] : "") . "</td>";
                 if ($row['booking_status'] == 1) {
                     echo "<td>เสร็จสิ้น</td>";
