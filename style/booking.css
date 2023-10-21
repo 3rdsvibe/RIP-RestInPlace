@@ -35,6 +35,7 @@ nav .navbar li a{
 header nav{
     border-radius: 0px 0px 30px 30px;
 }
+
 .container{
     width: 1600px;
     background-color: white;
@@ -223,3 +224,86 @@ textarea#w3review {
     height: 50px;
     width: 150px;
 }
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 40px;
+    /* background-color: red; */
+    border-radius: 25px;
+}
+.switch input{
+    /* appearance:none; */
+    width:200px;
+    height:40px;
+    border-radius: 25px;
+    background: red;
+    outline:none;
+   
+}
+.switch input::before,
+.switch input::after{
+    z-index: 2;
+    position: absolute;
+    top :56%;
+    transform: translateY(-50%);
+    font-weight: bolder;;
+}
+.switch input:checked{
+    background: #59A3B4;
+}
+
+
+
+.toggle-container {
+    text-align: center;
+}
+
+.toggle-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Style the active button differently */
+.toggle-button.active {
+    background-color: #59A3B4;
+    color: #fff;
+}
+button#btn1,button#btn2 {
+    width: 30%;
+    border-radius: 20px;
+}
+
+/* Initially, hide the second button */
+/* #btn2 {
+    display: none;
+} */
+/* .container-header{
+    text-align: center;
+    margin-top: 20px;
+}
+.slider{
+    position: absolute;
+    cursor: pointer;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom:0;
+    background-color: #59A3B4;
+    transition:.4s;
+    border-radius: 34px;
+}
+
+.slider:before{
+    position: absolute;
+    content:"กรุณากรอก";
+   
+   
+    transition:0.4s;
+   
+
+}
+input:check + .slider{
+    background-color: red;
+} */

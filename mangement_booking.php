@@ -50,9 +50,13 @@
     </header>
     <div class="container">
         <div class="container-body">
-            <div class="header">
-                <button type="button" class="btn-manage" id = "btn-manage">แก้ไขข้อมูลที่พัก</button>
-                <button type="button"  class="btn-manage-edit" id ="btn-manage-edit">เพิ่มข้อมูลที่พัก</button>
+            <div class="container-header">
+                <!-- <button type="button" class="btn-manage" id = "btn-manage">แก้ไขข้อมูลที่พัก</button>
+                <button type="button"  class="btn-manage-edit" id ="btn-manage-edit">เพิ่มข้อมูลที่พัก</button> -->
+                <div class="toggle-container">
+                    <button class="toggle-button active" id="btn1">Button 1</button>
+                    <button class="toggle-button" id="btn2">Button 2</button>
+                 </div>
             </div>
             <div class="body">
             <div class="top">
@@ -188,12 +192,29 @@
     </div> -->
     <script>
         $(document).ready(function() {
+            const btn1 = document.getElementById("btn1");
+            const btn2 = document.getElementById("btn2");
             var countBedRoom = 0; // Initialize countBedRoom to 0
             var singleRoom = 0; // Initialize singleRoom to 0
             var amount = 0; // Initialize amount to 0
             var bathroom = 0; // Initialize singleRoom to 0
             var count = 0;
             var oldButtonId = "";
+            $(btn1).click(function(){
+                btn1.classList.add("active");
+                btn2.classList.remove("active");
+                // btn1.style.display = "none";
+                btn2.style.display = "inline-block";
+                $(".body").show()
+            });
+            $(btn2).click(function(){
+                btn1.classList.remove("active");
+                btn2.classList.add("active");
+                btn1.style.display = "inline-block";
+                $(".body").hide()
+
+            });
+
             $("#increment-bedroom").click(function(){
                 var buttonName = $(this).attr("id");
                 let num =  $("#countBedRoom").text();
