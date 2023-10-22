@@ -26,7 +26,7 @@
 
         body {
             font-family: 'Athiti', sans-serif;
-            background-image: url("https://i.pinimg.com/564x/62/95/79/629579823c4b0f350238522d1067dfb2.jpg");
+            background-image: url("https://images-ext-1.discordapp.net/external/ZnbHdhukRcHI6HijJ0TLzr6D4FT-q0nA-y73aOApXbs/https/i.pinimg.com/564x/c0/c6/cc/c0c6cc9cb4432d823bb068b9303e1ce4.jpg?width=372&height=661");
             background-size: 50%;
         }
 
@@ -376,7 +376,7 @@
 
             $result2 = $conn->query($sql2);
 
-            echo '<table class="table"><tr><th>ชื่อที่พัก</th><th>วันเช็คอิน</th><th>วันเช็คเอาท์</th><th>ราคา</th><th>สถานะการจอง</th><th>สถานะการจัดการเงิน</th><th>เพิ่มเติม</th></tr>';
+            echo '<table class="table"><tr><th>ชื่อที่พัก</th><th>วันเช็คอิน</th><th>วันเช็คเอาท์</th><th>ราคา</th><th>สถานะการจอง</th><th>สถานะการจัดการเงิน</th><th>จัดการเงิน</th></tr>';
 
             while ($row2 = $result2->fetch_assoc()) {
                 echo "<tr><td>" . (isset($row2['hotel_name']) ? $row2['hotel_name'] : "") . "</td>";
@@ -393,7 +393,7 @@
                 } else {
                     echo "<td>รอดำเนินการ</td>";
                 }
-                echo "<td><a href='managemoney.php?booking_id=" . $row2['booking_id'] . "'>รายละเอียด</a></td>";
+                echo "<td><a href='managemoney.php?booking_id=" . $row2['booking_id'] . "'>โอนเงิน</a></td>";
             }
 
             echo "</table>";

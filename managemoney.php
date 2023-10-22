@@ -94,7 +94,7 @@
 
         body {
             font-family: 'Athiti', sans-serif;
-            background-image: url("https://i.pinimg.com/564x/62/95/79/629579823c4b0f350238522d1067dfb2.jpg");
+            background-image: url("https://images-ext-1.discordapp.net/external/ZnbHdhukRcHI6HijJ0TLzr6D4FT-q0nA-y73aOApXbs/https/i.pinimg.com/564x/c0/c6/cc/c0c6cc9cb4432d823bb068b9303e1ce4.jpg?width=372&height=661");
             background-size: 50%;
         }
 
